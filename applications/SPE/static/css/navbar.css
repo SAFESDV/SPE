@@ -2,13 +2,36 @@ body{
 	overflow-x: hidden;
 }
 
+.transparent {
+    background: #ececec  !important;
+}
+
+.header_home {
+    position: fixed;
+    height: 101px !important;
+    margin-top: 0px;
+    z-index: 1030;
+    background:none;
+}
+
+
+.banner-fixed-top {
+    top: 0 !important;
+    border-width: 0 0 1px !important;
+    position: fixed !important;
+}
+
+.navbar-fixed-top {
+    top: 87px !important;
+    border-width: 0 0 1px !important;
+    position: fixed !important;
+}
+
 .navbar-default, .navbar-style {
-    max-height:50px !important;
-
+    max-height: 40px !important;
     position: relative;
-
-    padding: 5px 12px !important;
-    padding-top: 10px !important;
+    margin-top: 10px;   
+    padding: 0px 12px !important;
 	background-color: #e3e3e3 !important;
 }
 
@@ -92,3 +115,67 @@ ul.nav.navbar-nav.navbar-right .navbar-nav>li>.dropdown-menu {
 	margin:0px;
 	padding:0px;
 }
+
+/*------------------------PRUEBA--------------------*/
+
+/*-------------------------------*/
+/*           Wrappers            */
+/*-------------------------------*/
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 270px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    left: 220px;
+    width: 0;
+    height: 100%;
+    margin-left: -220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #1a1a1a;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 220px;
+}
+
+#main {
+    width: 100%;
+    padding-top: 0px;
+}
+
+#wrapper.toggled #main {
+    position: absolute;
+    margin-right: -220px;
+}
+
+/*------------------------ICONO DEL MENU ------------------------*/
+.navbar-ico {
+
+    font-size: x-large;
+    padding: 4px 12px 4px 12px;
+}
+
+.navbar-ico:hover,
+.navbar-ico:active {
+    background-color: #000000;
+}
+

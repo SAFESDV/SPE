@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
     <!--  Mobile Viewport Fix
           j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
-          device-width: Occ7upy full width of the screen in its current orientation
+          device-width: Occupy full width of the screen in its current orientation
           initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
           user-scalable = yes allows the user to zoom in -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,13 +22,13 @@
     <!-- include stylesheets -->
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap3.css')}}"/>
-    
+    <link rel="stylesheet" href="{{=URL('static','css/simple-sidebar.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/perfil_estudiante.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/navbar.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/footer.css')}}"/>
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{=URL('static','css/font-awesome.css')}}">
     <link rel="stylesheet" href="{{=URL('static','css/main.css')}}"/>
     <!-- All JavaScript at the bottom, except for Modernizr which enables
          HTML5 elements & feature detects -->
@@ -55,44 +55,25 @@
     <div class="w2p_flash alert alert-dismissable">{{=response.flash or ''}}</div>
     <!-- Navbar ======================================= -->
     <div class="header_home">
-		<div class="container transparent">
-            <div class="col-xs-3 logo">
+      <div class="container transparent">
+        <div class="col-xs-3 logo" style="width: 90% !important">
+          {{=IMG(_src=URL('static','images/home/LogoUniversidadSimonBolivar.png'),alt="USBLOGO")}}
+        </div>
+      </div>
+    </div>
 
-		    	<div class="hidden-xs">
-
-		    	    {{=IMG(_src=URL('static','images/home/LogoUniversidadSimonBolivar.png'),alt="USBLOGO")}}
-		        </div>
-                <div class="hidden-sm hidden-md hidden-lg hidden-xl">
-
-		    	    {{=IMG(_src=URL('static','images/home/logo.png'),alt="USBLOGO")}}
-		        </div>
-		    </div>
-
-            <div class="col-xs-9 titlesHeader">
-                  	<div class="title" padding-top: 10%>
-		    	        Coordinación de Cooperación Técnica - CCT
-                    </div>
-                    <div class="subtitle">
-                        Sistema de Pasantías Empresariales
-                    </div>
-              </div>
-	    </div>
-	</div>
-
-    <nav class="navbar-default navbar-style" role="navigation">
+    <nav class="navbar-default navbar-style navbar-fixed-top" role="navigation">
       <div class="container-fluid">
+        
 
-        <div class="navbar-header">
-            <button type = "button" class = "navbar-toggle collapsed"
-               data-toggle = "collapse" data-target = "#navbar">
-               <span class = "sr-only">Toggle navigation</span>
-               <span class = "icon-bar"></span>
-               <span class = "icon-bar"></span>
-               <span class = "icon-bar"></span>
-            </button>
+        <div class="navbar-header navbar-ico" class="hamburger is-open"  data-toggle="offcanvas">
+          <span type="button">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </span>
         </div>
 
-        <div id="navbar" class="collapse navbar-collapse navbar-content-style">
+        <div id="navbar" class="collapse navbar-collapse navbar-content-style" style="position: static;">
+
             {{if auth.is_logged_in():}}
             {{=MENU(menu_autenticado, _class='nav navbar-nav navbar-right',li_class='dropdown',ul_class='dropdown-menu dropdown-menu-style', li_first='dropdown', li_last='dropdown')}}
             {{pass}}
@@ -105,12 +86,11 @@
 
     <!-- Main ========================================= -->
     <!-- Begin page content -->
-
-    <div id="main" class="container-fluid main-container">
-      {{block center}}
-      {{include}}
-      {{end}}
-    </div>
+      <div id="main" class="container-fluid main-container">
+        {{block center}}
+        {{include}}
+        {{end}}
+      </div>
 
     {{block footer}} <!-- this is default footer -->
     <footer class="footer footer-style">
@@ -148,6 +128,35 @@
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $(document).ready(function () {
+          var trigger = $('.hamburger'),
+              overlay = $('.overlay'),
+              isClosed = false;
+
+            trigger.click(function () {
+              hamburger_cross();      
+            });
+
+            function hamburger_cross() {
+
+              if (isClosed == true) {          
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+              } else {   
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+              }
+          }
+          
+          $('[data-toggle="offcanvas"]').click(function () {
+                $('#wrapper').toggleClass('toggled');
+          });  
         });
     </script>
   </body>

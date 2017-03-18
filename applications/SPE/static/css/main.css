@@ -1,3 +1,12 @@
+#contenido {
+    margin-top: 190px;
+}
+
+.logo img {
+    width: 20% !important;
+}
+
+
 .link-spe{
     text-decoration: none;
     color: #0000C0;
@@ -10,11 +19,14 @@
     cursor: pointer;
 }
 
+
 /*FOOTER*/
 .footer{
     margin-top: 20px;
     background: #666666;
     color:  white;
+    position:absolute; 
+    margin-bottom:-15%
 }
 
 .main-container{
@@ -122,7 +134,6 @@ body{
 .transparent {
     background: rgba(240, 237, 237, 0.63);
     height: 100%;
-    width: 100%;
 }
 .titlesHeader{
     text-align: center;

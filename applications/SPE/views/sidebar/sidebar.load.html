@@ -1,27 +1,32 @@
-<ul style="margin-top: 20px; display: flex; flex-direction: column; font-family: 'DejaVu Sans' !important;" class="container">
-    {{for roles in sidebar:}}
-    <li><div class="dropdown">
-        <button class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{=roles['rol']}}:
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            {{for contexto in roles['contextos']:}}
-                <li><div class="dropdown">
-                    <span class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        {{=contexto['contexto']}}
-                        <span class="caret"></span>
-                    </span>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        {{for accion in contexto['acciones']:}}
-                            <li>
-                                <a href="{{=accion['destino']}}">{{=accion['nombre']}}</a>
-                            </li>
-                        {{pass}}
-                    </ul>
-                </div></li>
-            {{pass}}
-        </ul>
-    </li></div>
-    {{pass}}
-</ul>
+
+{{if auth.is_logged_in():}}
+<div id="wrapper">
+  <div class="overlay"></div>
+    <div class="nav-side-menu">  
+          <div class="menu-list">
+    
+              <ul id="menu-content" class="menu-content collapse out">
+                {{for roles in sidebar:}}
+
+                  <li  data-toggle="collapse" data-target="#{{=roles['rol']}}" class="collapsed active pad-prin">
+                    <a href="#"> {{=roles['rol']}} <span class="arrow "></span></a>
+                  </li>
+                  <ul class="collapse" id="{{=roles['rol']}}" >
+                    {{for contexto in roles['contextos']:}}
+                      <li  data-toggle="collapse" data-target="#{{=roles['rol']}}-{{=contexto['contexto']}}" class="collapsed inter-menu">
+                        <a href="#">  {{=contexto['contexto']}} <span class="arrow"></span></a>
+                          <ul class="sub-menu collapse" id="{{=roles['rol']}}-{{=contexto['contexto']}}">
+                            {{for accion in contexto['acciones']:}}
+                               <li><a href="{{=accion['destino']}}">{{=accion['nombre']}}</a</li>
+                            {{pass}}
+                          </ul>
+                      </li>
+                    {{pass}}
+                  </ul>
+
+              {{pass}}
+              </ul>
+       </div>
+  </div>
+</div>
+  {{pass}}
