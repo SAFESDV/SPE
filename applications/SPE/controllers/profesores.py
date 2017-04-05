@@ -48,6 +48,12 @@ def listar():
     session.rows = []
     return dict(rows=session.rows)
 
+
+def agregarProfesoresEnMasa():
+    y = request.vars.agregarProfesoresEnMasa
+    y = request.vars.fafafa
+    return y
+
 @auth.requires(Usuario.checkUserPermission(construirAccion(request.application,request.controller)))
 def agregar(request):
     fields = [

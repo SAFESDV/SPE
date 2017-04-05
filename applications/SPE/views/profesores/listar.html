@@ -12,10 +12,11 @@
                         </div>
                     </div>
                     {{=LOAD('profesores', 'sqlform_grid', ajax=True)}}
-
-                    Registrar lista de profesores
-
-                    <input class="upload input-file" id="ListaDeProfesores" name="Lista" type="file">
+                    <form enctype="multipart/form-data" action= "agregarProfesoresEnMasa" method = "post">
+                        Registrar lista de profesores
+                        <input class="upload input-file" id="ListaDeProfesores" name="Lista" type="file">
+                        <input type="submit" value="Submit">
+                    </form> 
                 </center>
             </div>
         </div>
