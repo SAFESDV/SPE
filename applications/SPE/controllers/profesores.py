@@ -46,13 +46,25 @@ def sqlform_grid():
 @auth.requires(Usuario.checkUserPermission(construirAccion(request.application,request.controller)))
 def listar():
     session.rows = []
-    return dict(rows=session.rows)
+    return locals()
 
+@auth.requires(Usuario.checkUserPermission(construirAccion(request.application,request.controller)))
+def AgregarProfesoresEnMasa():
 
-def agregarProfesoresEnMasa():
-    y = request.vars.agregarProfesoresEnMasa
-    y = request.vars.fafafa
-    return y
+    import os
+    form = SQLFORM.factory(
+        Field('archivo_exel', 'upload',uploadfolder="uploads"))
+    if form.process().accepted:
+        response.flash = 'form accepted'
+        session.archivo_exel = form.vars.archivo_exel
+        archivo = session.archivo_exel
+        filepath = os.path.join('uploads', str(archivo))
+        file = open(filepath, "rb")
+        print file.read()
+        
+    elif form.errors:
+        response.flash = 'form has errors'
+    return dict(form=form)
 
 @auth.requires(Usuario.checkUserPermission(construirAccion(request.application,request.controller)))
 def agregar(request):
@@ -148,3 +160,5 @@ def eliminar(request):
     profesor.delete_record()
     membership.delete_record()
     redirect(URL('sqlform_grid'))
+
+
