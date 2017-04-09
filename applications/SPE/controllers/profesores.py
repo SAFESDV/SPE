@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from Profesores import Profesor
-
+from usbutils import random_key
 import Encoder
 from applications.SPE_lib.modules.grids import simple_spe_grid
 Profesor = Profesor()
@@ -59,41 +59,39 @@ def AgregarProfesoresEnMasa():
         session.archivo_exel = form.vars.archivo_exel
         archivo = session.archivo_exel
         filepath = os.path.join('uploads', str(archivo))
-        i = 20
         with open(filepath) as f:
             content = f.readlines()
         for profesor in content:
 
             AtributosProf = str(profesor).split()
-            first_name = "Juan"
-            last_name = "Petunia"
-            email = "alenios@hotmail.com"
-            carnet = "11-10088"
-            telefono = 4265118251
+            first_name = AtributosProf[0]
+            last_name = AtributosProf[1]
+            carnet = AtributosProf[2]
+            email = AtributosProf[3]
+            telefono = AtributosProf[4]
+            clave = random_key()
             auth_User_Id = db.auth_user.insert(
                 first_name=first_name,
                 last_name=last_name,
                 username=carnet,
                 email=email,
-                telefono=telefono)
-            if ((len(AtributosProf) == 5)and(i == 20)):
-                if (AtributosProf[0] == "Ah?"):
-                    usuarioLeida = auth_User_Id
-                else:
-                    usuarioLeida = auth_User_Id
-                if (AtributosProf[1] == "Asociado"):
+                telefono=telefono,
+                password = db.auth_user.password.validate(clave)
+            )
+            if (len(AtributosProf) == 9):
+                if (AtributosProf[5] == "Asociado"):
                     categoriaLeida = 1
                 else:
                     categoriaLeida = 1
-                if (AtributosProf[2] == "Exclusiva"):
+                if (AtributosProf[6] == "Exclusiva"):
                     dedicacionLeida = 1
                 else:
                     dedicacionLeida = 1
-                if (AtributosProf[3] == "CienciasDeLosMateriales"):
+                if (AtributosProf[7] == "CienciasDeLosMateriales"):
                     departamentoLeida = 1
                 else:
                     departamentoLeida = 1
-                if (AtributosProf[4] == "Sartenejas"):
+                if (AtributosProf[8] == "Sartenejas"):
                     sedeLeida = 1
                 else:
                     sedeLeida = 1
@@ -109,12 +107,10 @@ def AgregarProfesoresEnMasa():
                 )
                 profesor=db.Profesor(id=profesorId)
                 group = db.auth_group(role="Profesor")
-                # Se agrega el rol
-#                membership = db.auth_membership.insert(
-#                    user_id=profesor.usuario,
-#                    group_id=group.id,
-#                )
-                i = i +1
+                membership = db.auth_membership.insert(
+                    user_id=profesor.usuario,
+                    group_id=group.id,
+                )
             else:
                 print "linea invalida"
         
