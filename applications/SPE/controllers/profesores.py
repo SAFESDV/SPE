@@ -59,8 +59,64 @@ def AgregarProfesoresEnMasa():
         session.archivo_exel = form.vars.archivo_exel
         archivo = session.archivo_exel
         filepath = os.path.join('uploads', str(archivo))
-        file = open(filepath, "rb")
-        print file.read()
+        i = 20
+        with open(filepath) as f:
+            content = f.readlines()
+        for profesor in content:
+
+            AtributosProf = str(profesor).split()
+            first_name = "Juan"
+            last_name = "Petunia"
+            email = "alenios@hotmail.com"
+            carnet = "11-10088"
+            telefono = 4265118251
+            auth_User_Id = db.auth_user.insert(
+                first_name=first_name,
+                last_name=last_name,
+                username=carnet,
+                email=email,
+                telefono=telefono)
+            if ((len(AtributosProf) == 5)and(i == 20)):
+                if (AtributosProf[0] == "Ah?"):
+                    usuarioLeida = auth_User_Id
+                else:
+                    usuarioLeida = auth_User_Id
+                if (AtributosProf[1] == "Asociado"):
+                    categoriaLeida = 1
+                else:
+                    categoriaLeida = 1
+                if (AtributosProf[2] == "Exclusiva"):
+                    dedicacionLeida = 1
+                else:
+                    dedicacionLeida = 1
+                if (AtributosProf[3] == "CienciasDeLosMateriales"):
+                    departamentoLeida = 1
+                else:
+                    departamentoLeida = 1
+                if (AtributosProf[4] == "Sartenejas"):
+                    sedeLeida = 1
+                else:
+                    sedeLeida = 1
+
+                activoLeida = True
+                profesorId = db.Profesor.insert(
+                    usuario=auth_User_Id,
+                    categoria='1',
+                    dedicacion='1',
+                    departamento='1',
+                    sede='1',
+                    activo='True'
+                )
+                profesor=db.Profesor(id=profesorId)
+                group = db.auth_group(role="Profesor")
+                # Se agrega el rol
+#                membership = db.auth_membership.insert(
+#                    user_id=profesor.usuario,
+#                    group_id=group.id,
+#                )
+                i = i +1
+            else:
+                print "linea invalida"
         
     elif form.errors:
         response.flash = 'form has errors'
