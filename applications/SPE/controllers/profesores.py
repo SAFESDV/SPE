@@ -54,7 +54,7 @@ def AgregarProfesoresEnMasa():
 
     import os
     form = SQLFORM.factory(
-        Field('archivo_exel', 'upload',uploadfolder="uploads"))
+        Field('archivo_csv', 'upload',uploadfolder="uploads"))
     if form.process().accepted:
         response.flash = 'form accepted'
         session.archivo_exel = form.vars.archivo_exel
@@ -68,6 +68,8 @@ def AgregarProfesoresEnMasa():
                 AtributosProf = profesor
                 first_name = AtributosProf[0]
                 last_name = AtributosProf[1]
+
+#No se que es estooooo
                 tipoDocumento = AtributosProf[2]
                 cedula = AtributosProf[3]
                 carnet = AtributosProf[4]
@@ -91,30 +93,106 @@ def AgregarProfesoresEnMasa():
                     password = db.auth_user.password.validate(clave)
                 )
                 if (len(AtributosProf) == 15):
-                    if (AtributosProf[11] == "Asociado"):
-                        categoriaLeida = 1
+                    if (AtributosProf[11].upper().lower() == "asociado"):
+                        categoriaLeida = '1'
+                    elif (AtributosProf[11].upper().lower() == "titular"):
+                        categoriaLeida = '2'
+                    elif (AtributosProf[11].upper().lower() == "agregado"):
+                        categoriaLeida = '3'
+                    elif (AtributosProf[11].upper().lower() == "asistente"):
+                        categoriaLeida = '4'
                     else:
-                        categoriaLeida = 1
-                    if (AtributosProf[12] == "Exclusiva"):
-                        dedicacionLeida = 1
+                        print("Error al leer categoría: " + str(i))
+                        categoriaLeida = '1'
+
+                    if (AtributosProf[12].upper().lower() == "exclusiva"):
+                        dedicacionLeida = '1'
                     else:
-                        dedicacionLeida = 1
-                    if (AtributosProf[13] == "CienciasDeLosMateriales"):
-                        departamentoLeida = 1
+                        print("Error al leer dedicación: " + str(i))
+                        print("----------------------------------")
+                        print(AtributosProf[12].upper().lower())
+                        print("----------------------------------")
+
+                        dedicacionLeida = '1'
+
+                    if (AtributosProf[13].upper().lower() == "ciencias de los materiales"):
+                        departamentoLeida = '1'
+                    elif (AtributosProf[13].upper().lower() == "ciencias de la tierra"):
+                        departamentoLeida = '2'
+                    elif (AtributosProf[13].upper().lower() == "computación y tecnología de la información"):
+                        departamentoLeida = '3'
+                    elif (AtributosProf[13].upper().lower() == "conversión y transporte de energía"):
+                        departamentoLeida = '4'
+                    elif (AtributosProf[13].upper().lower() == "electrónica y circuitos"):
+                        departamentoLeida = '5'
+                    elif (AtributosProf[13].upper().lower() == "mecánica"):
+                        departamentoLeida = '6'
+                    elif (AtributosProf[13].upper().lower() == "procesos y sistemas"):
+                        departamentoLeida = '7'
+                    elif (AtributosProf[13].upper().lower() == "tecnología de procesos biológicos y bioquímicos"):
+                        departamentoLeida = '8'
+                    elif (AtributosProf[13].upper().lower() == "termodinámica y fenómenos de transferencia"):
+                        departamentoLeida = '9'
+                    elif (AtributosProf[13].upper().lower() == "biología celular"):
+                        departamentoLeida = '10'
+                    elif (AtributosProf[13].upper().lower() == "biología de organismos"):
+                        departamentoLeida = '11'
+                    elif (AtributosProf[13].upper().lower() == "cómputo científico y estadística"):
+                        departamentoLeida = '12'
+                    elif (AtributosProf[13].upper().lower() == "estudios ambientales"):
+                        departamentoLeida = '13'
+                    elif (AtributosProf[13].upper().lower() == "física"):
+                        departamentoLeida = '14'
+                    elif (AtributosProf[13].upper().lower() == "matemáticas puras y aplicadas"):
+                        departamentoLeida = '15'
+                    elif (AtributosProf[13].upper().lower() == "química"):
+                        departamentoLeida = '16'
+                    elif (AtributosProf[13].upper().lower() == "ciencias económicas y administrativas"):
+                        departamentoLeida = '17'
+                    elif (AtributosProf[13].upper().lower() == "ciencias sociales"):
+                        departamentoLeida = '18'
+                    elif (AtributosProf[13].upper().lower() == "ciencia y tecnología del comportamiento"):
+                        departamentoLeida = '19'
+                    elif (AtributosProf[13].upper().lower() == "diseño, arquitectura y artes plásticas"):
+                        departamentoLeida = '20'
+                    elif (AtributosProf[13].upper().lower() == "filosofía"):
+                        departamentoLeida = '21'
+                    elif (AtributosProf[13].upper().lower() == "idiomas"):
+                        departamentoLeida = '22'
+                    elif (AtributosProf[13].upper().lower() == "lengua y literatura"):
+                        departamentoLeida = '23'
+                    elif (AtributosProf[13].upper().lower() == "planificación urbana"):
+                        departamentoLeida = '24'
+                    elif (AtributosProf[13].upper().lower() == "profesional externo a la usb (internacional)"):
+                        departamentoLeida = '25'
+                    elif (AtributosProf[13].upper().lower() == "tecnología industrial"):
+                        departamentoLeida = '26'
+                    elif (AtributosProf[13].upper().lower() == "formación general y ciencias básicas"):
+                        departamentoLeida = '27'
+                    elif (AtributosProf[13].upper().lower() == "tecnología de servicios"):
+                        departamentoLeida = '28'
+                    elif (AtributosProf[13].upper().lower() == "profesional externo a la usb (en venezuela)"):
+                        departamentoLeida = '29'
                     else:
-                        departamentoLeida = 1
-                    if (AtributosProf[14] == "Sartenejas"):
-                        sedeLeida = 1
+                        print("Error al leer el departamento: " + str(i))
+                        departamentoLeida = '1'
+
+
+                    if (AtributosProf[14].upper().lower() == "sartenejas"):
+                        sedeLeida = '1'
+                    elif (AtributosProf[14].upper().lower() == "litoral"):
+                        sedeLeida = '2'
                     else:
-                        sedeLeida = 1
+                        print("Error al leer sede: " + str(i))
+                        sedeLeida = '1'
     
                     activoLeida = True
                     profesorId = db.Profesor.insert(
                         usuario=auth_User_Id,
-                        categoria='1',
-                        dedicacion='1',
-                        departamento='1',
-                        sede='1',
+                        categoria=categoriaLeida,
+                        dedicacion=dedicacionLeida,
+                        departamento=departamentoLeida,
+                        sede=sedeLeida,
                         activo='True'
                     )
                     profesor=db.Profesor(id=profesorId)
